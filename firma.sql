@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 17 Gru 2020, 17:51
+-- Czas generowania: 18 Gru 2020, 23:32
 -- Wersja serwera: 10.4.16-MariaDB
 -- Wersja PHP: 7.4.12
 
@@ -25,28 +25,28 @@ DELIMITER $$
 --
 -- Procedury
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dodaj_adres` (IN `miejscowosc` VARCHAR(45), IN `powiat` VARCHAR(45), IN `wojewodztwo` VARCHAR(45), IN `kraj` VARCHAR(45), IN `kod_pocztowy` VARCHAR(10), IN `ulica` VARCHAR(45), IN `nr_domu` VARCHAR(10), IN `nr_mieszkania` VARCHAR(10))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_adres` (IN `miejscowosc` VARCHAR(45), IN `powiat` VARCHAR(45), IN `wojewodztwo` VARCHAR(45), IN `kraj` VARCHAR(45), IN `kod_pocztowy` VARCHAR(10), IN `ulica` VARCHAR(45), IN `nr_domu` VARCHAR(10), IN `nr_mieszkania` VARCHAR(10))  NO SQL
 BEGIN
 INSERT INTO firma.adres(miejscowosc,powiat,wojewodztwo,kraj,kod_pocztowy,ulica,nr_domu,nr_mieszkania)
 VALUES (miejscowosc,powiat,wojewodztwo,kraj,kod_pocztowy,ulica,nr_domu,nr_mieszkania);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dodaj_klienta` (IN `nazwisko` VARCHAR(45), IN `imie` VARCHAR(45), IN `login` VARCHAR(45), IN `haslo` VARCHAR(45))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_klienta` (IN `nazwisko` VARCHAR(45), IN `imie` VARCHAR(45), IN `login` VARCHAR(45), IN `haslo` VARCHAR(45))  NO SQL
 BEGIN
 INSERT INTO firma.klient(nazwisko,imie,login,haslo)
 VALUES (nazwisko,imie,login,haslo);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dodaj_kontakt` (IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_kontakt` (IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45))  NO SQL
 BEGIN
 INSERT INTO firma.kontakt(nr_telefonu_1,nr_telefonu_2,fax,email)
 VALUES (nr_telefonu_1,nr_telefonu_2,fax,email);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dodaj_pracownika` (IN `miejscowosc` VARCHAR(45), IN `powiat` VARCHAR(45), IN `wojewodztwo` VARCHAR(45), IN `kraj` VARCHAR(45), IN `kod_pocztowy` VARCHAR(10), IN `ulica` VARCHAR(45), IN `nr_domu` VARCHAR(10), IN `nr_mieszkania` VARCHAR(10), IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45), IN `nazwisko` VARCHAR(45), IN `imie` VARCHAR(45), IN `login` VARCHAR(45), IN `haslo` VARCHAR(45), IN `uprawnienia` ENUM('0','1','2','3'), IN `konto_aktywne` ENUM('0','1'), IN `data_zatrudnienia` DATE)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_pracownika` (IN `miejscowosc` VARCHAR(45), IN `powiat` VARCHAR(45), IN `wojewodztwo` VARCHAR(45), IN `kraj` VARCHAR(45), IN `kod_pocztowy` VARCHAR(10), IN `ulica` VARCHAR(45), IN `nr_domu` VARCHAR(10), IN `nr_mieszkania` VARCHAR(10), IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45), IN `nazwisko` VARCHAR(45), IN `imie` VARCHAR(45), IN `login` VARCHAR(45), IN `haslo` VARCHAR(45), IN `uprawnienia` ENUM('0','1','2','3'), IN `konto_aktywne` ENUM('0','1'), IN `data_zatrudnienia` DATE)  NO SQL
 BEGIN
 DECLARE IDADRES INT DEFAULT 1;
 DECLARE IDKONTAKT INT DEFAULT 1;
@@ -60,21 +60,21 @@ INSERT INTO firma.pracownik(nazwisko,imie,login,haslo,id_adres,id_kontakt,uprawn
 VALUES (nazwisko,imie,login,haslo,IDADRES,IDKONTAKT,uprawnienia,konto_aktywne,data_zatrudnienia);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dodaj_produkt_bez_polaczenia_z_magazynem` (IN `nazwa` VARCHAR(45), IN `typ` VARCHAR(45), IN `cena_netto` DECIMAL(10,2), IN `cena_brutto` DECIMAL(10,2), IN `opis` TEXT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_produkt_bez_polaczenia_z_magazynem` (IN `nazwa` VARCHAR(45), IN `typ` VARCHAR(45), IN `cena_netto` DECIMAL(10,2), IN `cena_brutto` DECIMAL(10,2), IN `opis` TEXT)  NO SQL
 BEGIN
 
 INSERT INTO firma.produkt(nazwa,typ, cena_netto,cena_brutto,opis)
 VALUES(nazwa,typ,cena_netto,cena_brutto,opis);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `DODAJ_PRODUKT_W_MAGAZYNIE` (IN `kod_produkt` VARCHAR(45), IN `ilosc_pierwszy_gatunek` INT, IN `ilosc_drugi_gatunek` INT, IN `lokalizacja` VARCHAR(45))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_produkt_w_magazynie` (IN `kod_produkt` VARCHAR(45), IN `ilosc_pierwszy_gatunek` INT, IN `ilosc_drugi_gatunek` INT, IN `lokalizacja` VARCHAR(45))  NO SQL
 BEGIN
 INSERT INTO firma.magazyn(kod_produkt,ilosc_pierwszy_gatunek,ilosc_drugi_gatunek,lokalizacja)
 VALUES (kod_produkt,ilosc_pierwszy_gatunek,ilosc_drugi_gatunek,lokalizacja);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dodaj_produkt_z_pustym_magazynem` (IN `nazwa` VARCHAR(45), IN `typ` VARCHAR(45), IN `cena_netto` DECIMAL(10,2), IN `cena_brutto` DECIMAL(10,2), IN `opis` TEXT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_produkt_z_pustym_magazynem` (IN `nazwa` VARCHAR(45), IN `typ` VARCHAR(45), IN `cena_netto` DECIMAL(10,2), IN `cena_brutto` DECIMAL(10,2), IN `opis` TEXT)  NO SQL
 BEGIN
 INSERT INTO firma.magazyn(kod_produkt,ilosc_pierwszy_gatunek,ilosc_drugi_gatunek,lokalizacja)
 VALUES(NULL,NULL,NULL,NULL);
@@ -82,7 +82,7 @@ INSERT INTO firma.produkt(id_magazyn,nazwa,typ, cena_netto,cena_brutto,opis)
 VALUES(LAST_INSERT_ID(),nazwa,typ,cena_netto,cena_brutto,opis);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dodaj_produkt_z_uzupelnieniem_magazynu` (IN `kod_produkt` VARCHAR(45), IN `ilosc_pierwszy_gatunek` INT, IN `ilosc_drugi_gatunek` INT, IN `lokalizacja` INT(45), IN `nazwa` VARCHAR(45), IN `typ` VARCHAR(45), IN `cena_netto` DECIMAL(10,2), IN `cena_crutto` DECIMAL(10,2), IN `opis` TEXT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodaj_produkt_z_uzupelnieniem_magazynu` (IN `kod_produkt` VARCHAR(45), IN `ilosc_pierwszy_gatunek` INT, IN `ilosc_drugi_gatunek` INT, IN `lokalizacja` INT(45), IN `nazwa` VARCHAR(45), IN `typ` VARCHAR(45), IN `cena_netto` DECIMAL(10,2), IN `cena_crutto` DECIMAL(10,2), IN `opis` TEXT)  NO SQL
 BEGIN
 INSERT INTO firma.magazyn(kod_produkt,ilosc_pierwszy_gatunek,ilosc_drugi_gatunek,lokalizacja)
 VALUES(kod_produkt,ilosc_pierwszy_gatunek,ilosc_drugi_gatunek,lokalizacja);
@@ -90,7 +90,7 @@ INSERT INTO firma.produkt(id_magazyn,nazwa,typ, cena_netto,cena_brutto,opis)
 VALUES(LAST_INSERT_ID(),nazwa,typ,cena_netto,cena_brutto,opis);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `edytuj_kontakt` (IN `id_kontakt` INT, IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Edytuj_kontakt` (IN `id_kontakt` INT, IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45))  NO SQL
 BEGIN 
 
 IF NOT EXISTS ( SELECT id_kontakt FROM kontakt WHERE kontakt.id_kontakt =id_kontakt)
@@ -116,7 +116,7 @@ WHERE kontakt.id_kontakt = id_kontakt AND fax >0;
 END IF;
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rejestracja_nowego_uzytkownika` (IN `miejscowosc` VARCHAR(45), IN `powiat` VARCHAR(45), IN `wojewodztwo` VARCHAR(45), IN `kraj` VARCHAR(45), IN `kod_pocztowy` VARCHAR(10), IN `ulica` VARCHAR(45), IN `nr_domu` VARCHAR(10), IN `nr_mieszkania` VARCHAR(10), IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45), IN `nazwisko` VARCHAR(45), IN `imie` VARCHAR(45), IN `login` VARCHAR(45), IN `haslo` VARCHAR(45))  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Rejestracja_nowego_uzytkownika` (IN `miejscowosc` VARCHAR(45), IN `powiat` VARCHAR(45), IN `wojewodztwo` VARCHAR(45), IN `kraj` VARCHAR(45), IN `kod_pocztowy` VARCHAR(10), IN `ulica` VARCHAR(45), IN `nr_domu` VARCHAR(10), IN `nr_mieszkania` VARCHAR(10), IN `nr_telefonu_1` VARCHAR(45), IN `nr_telefonu_2` VARCHAR(45), IN `fax` VARCHAR(45), IN `email` VARCHAR(45), IN `nazwisko` VARCHAR(45), IN `imie` VARCHAR(45), IN `login` VARCHAR(45), IN `haslo` VARCHAR(45))  NO SQL
 BEGIN
 DECLARE IDADRES INT DEFAULT 1;
 DECLARE IDKONTAKT INT DEFAULT 1;
@@ -130,60 +130,64 @@ INSERT INTO firma.klient(nazwisko,imie,login,haslo,id_adres,id_kontakt)
 VALUES (nazwisko,imie,login,haslo,IDADRES,IDKONTAKT);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `usun_zdjecie` (IN `id_zdjecie` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Usun_zdjecie` (IN `id_zdjecie` INT)  NO SQL
 BEGIN
 DELETE FROM galeria WHERE (id_zdjecie=id_zdjecie);
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `wstaw_zdjecie` (IN `url` VARCHAR(3000), IN `id_produkt` INT)  NO SQL
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Wstaw_zdjecie` (IN `url` VARCHAR(3000), IN `id_produkt` INT)  NO SQL
 BEGIN
 INSERT INTO firma.galeria(url,data_dodania,id_produkt) VALUES(url,NOW(),id_produkt);
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `Wyswietl_zamowienie` (IN `Nazwisko` VARCHAR(45))  NO SQL
 BEGIN
-select zp.id_zamowienie as nr_zamowienia, p.nazwa, zp.ilosc
-from zamowienie_produkt as zp
-inner join produkt as p on zp.id_produkt = p.id_produkt
-inner join zamowienie as z on zp.id_zamowienie = z.id_zamowienie
-inner join klient as k on z.id_klient = k.id_klient
+SELECT zp.id_zamowienie AS nr_zamowienia, p.nazwa, zp.ilosc
+FROM zamowienie_produkt AS zp
+INNER JOIN produkt AS p ON zp.id_produkt = p.id_produkt
+INNER JOIN zamowienie AS z ON zp.id_zamowienie = z.id_zamowienie
+INNER JOIN klient AS k ON z.id_klient = k.id_klient
 where k.nazwisko = Nazwisko;
 END$$
 
 --
 -- Funkcje
 --
-CREATE DEFINER=`root`@`localhost` FUNCTION `IloscTowaruPierwszegoGatunku` (`nazwa` VARCHAR(45)) RETURNS INT(11) NO SQL
+CREATE DEFINER=`root`@`localhost` FUNCTION `Calkowita_ilosc_odmiany_w_magazynie` (`nazwa` VARCHAR(45)) RETURNS INT(11) NO SQL
 BEGIN
-    DECLARE wynik INT DEFAULT 0;
-    DECLARE wsk INT DEFAULT 0;
-    DECLARE ilosc INT;
-    SET wsk = (select id_produkt_magazyn from produkt where produkt.nazwa = nazwa);
-    SET ilosc = (select ilosc_pierwszy_gatunek from magazyn where magazyn.id_produkt_magazyn = wsk);
-    
-    SET wynik=ilosc;
-    RETURN wynik;
+DECLARE wynik INT DEFAULT 0;
+DECLARE pierwszy_gatunek INT DEFAULT 0;
+DECLARE drugi_gatunek INT DEFAULT 0;
+DEClARE id INT DEFAULT 0;
+SET id =(SELECT id_magazyn FROM produkt WHERE produkt.nazwa = nazwa);
+SET pierwszy_gatunek = (SELECT ilosc_pierwszy_gatunek FROMmagazyn WHERE magazyn.id_magazyn = id);
+SET drugi_gatunek = (SELECT ilosc_drugi_gatunek FROM magazyn WHERE magazyn.id_magazyn = id);
+SET wynik=pierwszy_gatunek+drugi_gatunek;
+RETURN wynik;
 END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `SUMA_ODMIANY_MAGAZYN` (`id_produktu` INT) RETURNS INT(11) NO SQL
+CREATE DEFINER=`root`@`localhost` FUNCTION `Ilosc_Pierwszego_Gatunku` (`nazwa` VARCHAR(45)) RETURNS INT(11) NO SQL
 BEGIN
-    DECLARE wynik INT DEFAULT 0;
-    DECLARE pierwszy_gatunek INT;
-    DECLARE drugi_gatunek INT;
-    SET pierwszy_gatunek = (select ilosc_pierwszy_gatunek from magazyn where magazyn.id_magazyn = id_produktu);
-    SET drugi_gatunek = (select ilosc_drugi_gatunek from magazyn where magazyn.id_magazyn = id_produktu);
-    SET wynik=pierwszy_gatunek+drugi_gatunek;
-    RETURN wynik;
+DECLARE wynik INT DEFAULT 0;
+DECLARE wsk INT DEFAULT 0;
+DECLARE ilosc INT DEFAULT 0;
+
+ SET wsk = (select id_magazyn from produkt where produkt.nazwa = nazwa);
+ SET ilosc = (select ilosc_pierwszy_gatunek from magazyn where magazyn.id_magazyn = wsk);
+SET wynik=ilosc;
+
+RETURN wynik;
+
 END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `WyszukajNajtanszyProdukt` () RETURNS DECIMAL(10,2) NO SQL
+CREATE DEFINER=`root`@`localhost` FUNCTION `Wyszukaj_Najmniejsza_Cene` () RETURNS DECIMAL(10,2) NO SQL
 BEGIN
 DECLARE naj DECIMAL(10.2) DEFAULT 0;
 SET naj =(SELECT MIN(cena_brutto) FROM produkt);
 RETURN naj;
 END$$
 
-CREATE DEFINER=`root`@`localhost` FUNCTION `WyszukanieNajdrozszegoProduktu` () RETURNS DECIMAL(10,2) NO SQL
+CREATE DEFINER=`root`@`localhost` FUNCTION `Wyszukaj_Najwieksza_cene` () RETURNS DECIMAL(10,2) NO SQL
 BEGIN
 DECLARE naj DECIMAL(10.2) DEFAULT 0;
 SET naj =(SELECT MAX(cena_brutto) FROM produkt);
@@ -416,7 +420,8 @@ CREATE TABLE `zamowienie` (
 INSERT INTO `zamowienie` (`id_zamowienie`, `id_klient`, `data_zlozenia_zamowienia`, `czy_przyjeto_zamowienie`, `data_przyjecia_zamowienia`, `forma_zaplaty`, `metoda_wysylki`, `status_zamowienia`, `data_realizacji_zamowienia`, `status_zaplaty`) VALUES
 (1, 1, '2020-12-03 19:44:39', '1', '2020-12-05 19:54:39', 'przelew', 'kurier DHL', 'wysłano', '2020-12-08 09:44:39', 'zapłacono'),
 (2, 3, '2020-12-03 19:44:39', '1', '2020-12-12 08:54:39', 'za pobraniem', 'kurier INPOST', 'w trakcie kompletowania', '2021-03-15 09:44:39', 'niezapłacono'),
-(3, 2, '2020-12-16 19:44:39', '0', NULL, 'przelew', 'kurier GLS', 'nieprzyjęte', NULL, 'niezapłacono');
+(3, 2, '2020-12-16 19:44:39', '0', NULL, 'przelew', 'kurier GLS', 'nieprzyjęte', NULL, 'niezapłacono'),
+(4, 1, '2020-12-03 19:44:39', '1', '2020-12-05 19:54:39', 'przelew', 'kurier DHL', 'w trakcie kompletowania', '2020-12-08 09:44:39', 'niezapłacono');
 
 -- --------------------------------------------------------
 
@@ -440,7 +445,8 @@ INSERT INTO `zamowienie_produkt` (`id_zamowienie_produkt`, `id_zamowienie`, `id_
 (2, 1, 9, 12),
 (3, 1, 13, 1),
 (4, 2, 8, 1),
-(5, 3, 9, 200);
+(5, 3, 9, 200),
+(6, 4, 18, 6);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -517,7 +523,7 @@ ALTER TABLE `zamowienie_produkt`
 -- AUTO_INCREMENT dla tabeli `adres`
 --
 ALTER TABLE `adres`
-  MODIFY `id_adres` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_adres` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT dla tabeli `galeria`
@@ -529,13 +535,13 @@ ALTER TABLE `galeria`
 -- AUTO_INCREMENT dla tabeli `klient`
 --
 ALTER TABLE `klient`
-  MODIFY `id_klient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_klient` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT dla tabeli `kontakt`
 --
 ALTER TABLE `kontakt`
-  MODIFY `id_kontakt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_kontakt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT dla tabeli `magazyn`
@@ -559,7 +565,7 @@ ALTER TABLE `produkt`
 -- AUTO_INCREMENT dla tabeli `zamowienie_produkt`
 --
 ALTER TABLE `zamowienie_produkt`
-  MODIFY `id_zamowienie_produkt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_zamowienie_produkt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ograniczenia dla zrzutów tabel
